@@ -48,15 +48,21 @@ http ":8080/vectorRAG?question=Were there major investments made recently?"
 http ":8080/manualGraphRAG?question=Are there organizations with major investments recently?"
 
 #Agentic
+http ":8080/agents/debug/tools"
 #Vector agent
 http ":8080/agents/agentic?question=What news is related to cybersecurity threats?"
 http ":8080/agents/agentic?question=Are there any major funding announcements related to technology?"
-#http ":8080/agents/agentic?question=What sentiment is in the articles?"
-#http ":8080/agents/agentic?question=What articles mention AI?"
+http ":8080/agents/agentic?question=What sentiment is in the articles?"
+http ":8080/agents/agentic?question=What articles mention AI?"
 #Graph agent
 http ":8080/agents/agentic?question=Which industries are seeing the most change?"
-http ":8080/agents/agentic?question=Which organizations are dealing with layoffs?"
-#http ":8080/agents/agentic?question=Which companies are in the technology industry?"
+http ":8080/agents/agentic?question=Which locations are mentioned most in the articles?"
+http ":8080/agents/agentic?question=What organizations are doing innovative things with toys?"
+#Text2Cypher agent
+http ":8080/agents/agentic?question=Which organizations are not public and have revenue over 50 billion?"
+http ":8080/agents/agentic?question=Where is iDefense organization located?"
+http ":8080/agents/agentic?question=How many employees does CRMWaypoint have?"
+http ":8080/agents/agentic?question=Which organizations are mentioned most in articles?"
 ```
 
 ## Related Guides

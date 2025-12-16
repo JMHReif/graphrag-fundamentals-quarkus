@@ -1,18 +1,24 @@
 package org.jmhreif.agentic;
 
 import dev.langchain4j.agent.tool.Tool;
+import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.data.embedding.Embedding;
+import dev.langchain4j.service.tool.ToolExecutionResult;
 import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.mcp.client.McpClient;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingMatch;
 import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
 import dev.langchain4j.store.embedding.EmbeddingStore;
+import io.quarkiverse.langchain4j.mcp.runtime.McpClientName;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.jmhreif.OrganizationRepository;
 import org.jmhreif.domain.Organization;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -27,6 +33,10 @@ public class RAGTools {
 
     @Inject
     OrganizationRepository repository;
+
+    @Inject
+    @McpClientName("sec-neo4j")
+    McpClient mcpClient;
 
     @Tool("Answer questions about news article contents, topics, or sentiment")
     public String vectorSearch(String query) {
@@ -82,5 +92,38 @@ public class RAGTools {
         System.out.println(formattedResults);
 
         return formattedResults;
+    }
+
+    @Tool("Get the Neo4j database schema including node labels, relationship types, and properties")
+    public String getNeo4jSchema() {
+        System.out.println("----- Getting Neo4j Schema -----");
+
+        ToolExecutionRequest request = ToolExecutionRequest.builder()
+                .name("get_neo4j_schema")
+                .arguments("{}")
+                .build();
+
+        ToolExecutionResult executionResult = mcpClient.executeTool(request);
+        String result = executionResult.resultText();
+        System.out.println("Schema: " + result);
+        return result;
+    }
+
+    @Tool("Execute read-only Cypher queries against the Neo4j database to retrieve data about organizations, industries, and cities")
+    public String readCypher(String query) {
+        System.out.println("----- Executing Cypher Query -----");
+        System.out.println("Query: " + query);
+
+        String arguments = String.format("{\"query\": \"%s\"}", query.replace("\"", "\\\""));
+
+        ToolExecutionRequest request = ToolExecutionRequest.builder()
+                .name("read_neo4j_cypher")
+                .arguments(arguments)
+                .build();
+
+        ToolExecutionResult executionResult = mcpClient.executeTool(request);
+        String result = executionResult.resultText();
+        System.out.println("Result: " + result);
+        return result;
     }
 }

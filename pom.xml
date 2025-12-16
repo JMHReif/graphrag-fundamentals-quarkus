@@ -89,6 +89,17 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Demo purpose -->
+        <!-- Explicit MCP version for compatibility with quarkus-langchain4j-mcp 1.2.2 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-mcp</artifactId>
+            <version>1.5.0-beta11</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.langchain4j</groupId>
+            <artifactId>quarkus-langchain4j-mcp</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
