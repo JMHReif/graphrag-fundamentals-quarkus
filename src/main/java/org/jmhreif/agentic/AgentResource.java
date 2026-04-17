@@ -20,7 +20,7 @@ public class AgentResource {
     private final AgentAiService agentAiService;
 
     @Inject
-    @McpClientName("sec-neo4j")
+    @McpClientName("neo4j-mcp")
     McpClient mcpClient;
 
     public AgentResource(AgentAiService agentAiService) {

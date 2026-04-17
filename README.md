@@ -22,21 +22,17 @@ http ":8080/articleMentions"
 
 #LLM questions
 http ":8080/llm?question=Who is Jennifer Reif?"
-http ":8080/llm?question=Could you create a short poem about technology in the style of Emily Dickinson?"
 http ":8080//llm?question=Who is Jennifer Reif using this as context? Jennifer Reif is a developer advocate at Neo4j, focusing on the Java ecosystem. She is a technical speaker, blogger, podcaster, and author, with an MS in CMIS."
-http ":8080/llm?question=What is the latest news about toys?"
+http ":8080/llm?question=Which companies recently announced major layoffs?"
+http ":8080/llm?question=What cybersecurity threats are being discussed in current news?"
 
 #Vector RAG questions
-http ":8080/vectorRAG?question=What is the latest news about toys?"
-##bare minimum results
-http ":8080/vectorRAG?question=What organizations are mentioned related to layoffs?"
+http ":8080/vectorRAG?question=Which companies recently announced major layoffs?"
+http ":8080/vectorRAG?question=What cybersecurity threats are being discussed in the news?"
 
 #GraphRAG questions
-http ":8080/manualGraphRAG?question=What organizations are mentioned related to layoffs?"
-http ":8080/manualGraphRAG?question=Which industries are most affected by the layoffs?"
-http ":8080/manualGraphRAG?question=Are there new launch announcements in the news?"
-http ":8080/manualGraphRAG?question=Which industries are seeing the most change?"
-http ":8080/manualGraphRAG?question=What are the major funding announcements related to technology?"
+http ":8080/manualGraphRAG?question=Which companies recently announced major layoffs?"
+http ":8080/manualGraphRAG?question=Which industries are most affected by layoffs?"
 
 ##DEMO portion:
 
@@ -49,20 +45,15 @@ http ":8080/manualGraphRAG?question=Are there organizations with major investmen
 
 #Agentic
 http ":8080/agents/debug/tools"
-#Vector agent
+##Vector agent
 http ":8080/agents/agentic?question=What news is related to cybersecurity threats?"
-http ":8080/agents/agentic?question=Are there any major funding announcements related to technology?"
-http ":8080/agents/agentic?question=What sentiment is in the articles?"
-http ":8080/agents/agentic?question=What articles mention AI?"
-#Graph agent
-http ":8080/agents/agentic?question=Which industries are seeing the most change?"
-http ":8080/agents/agentic?question=Which locations are mentioned most in the articles?"
-http ":8080/agents/agentic?question=What organizations are doing innovative things with toys?"
-#Text2Cypher agent
+##Graph agent
+http ":8080/agents/agentic?question=Which industries are seeing the most change recently?"
+##Text2Cypher agent
 http ":8080/agents/agentic?question=Which organizations are not public and have revenue over 50 billion?"
 http ":8080/agents/agentic?question=Where is iDefense organization located?"
 http ":8080/agents/agentic?question=How many employees does CRMWaypoint have?"
-http ":8080/agents/agentic?question=Which organizations are mentioned most in articles?"
+http ":8080/agents/agentic?question=Which organizations have the most article mentions and what sectors are they in?"
 ```
 
 ## Related Guides

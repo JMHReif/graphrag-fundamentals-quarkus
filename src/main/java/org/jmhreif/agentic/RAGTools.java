@@ -16,8 +16,10 @@ import jakarta.inject.Inject;
 import org.jmhreif.OrganizationRepository;
 import org.jmhreif.domain.Organization;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import java.util.Map;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -35,8 +37,11 @@ public class RAGTools {
     OrganizationRepository repository;
 
     @Inject
-    @McpClientName("sec-neo4j")
+    @McpClientName("neo4j-mcp")
     McpClient mcpClient;
+
+    @Inject
+    ObjectMapper objectMapper;
 
     @Tool("Answer questions about news article contents, topics, or sentiment")
     public String vectorSearch(String query) {
@@ -99,7 +104,7 @@ public class RAGTools {
         System.out.println("----- Getting Neo4j Schema -----");
 
         ToolExecutionRequest request = ToolExecutionRequest.builder()
-                .name("get_neo4j_schema")
+                .name("get-schema")
                 .arguments("{}")
                 .build();
 
@@ -114,10 +119,15 @@ public class RAGTools {
         System.out.println("----- Executing Cypher Query -----");
         System.out.println("Query: " + query);
 
-        String arguments = String.format("{\"query\": \"%s\"}", query.replace("\"", "\\\""));
+        String arguments;
+        try {
+            arguments = objectMapper.writeValueAsString(Map.of("query", query));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to serialize Cypher query arguments", e);
+        }
 
         ToolExecutionRequest request = ToolExecutionRequest.builder()
-                .name("read_neo4j_cypher")
+                .name("read-cypher")
                 .arguments(arguments)
                 .build();
 

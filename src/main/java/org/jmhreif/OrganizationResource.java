@@ -82,11 +82,11 @@ public class OrganizationResource {
         // System.out.println("----- Org list -----");
         // System.out.println(orgList);
 
-        // Format graph results for prompt
+        // Format graph results for prompt (metadata only — chunk text already captured by vector search)
         String context = (orgList == null)
                 ? ""
                 : StreamSupport.stream(orgList.spliterator(), false)
-                .map(Organization::toString)
+                .map(Organization::toContextString)
                 .collect(Collectors.joining("\n"));
 
         //Call the LLM with custom prompt and return answer text
@@ -145,4 +145,6 @@ public class OrganizationResource {
                 String.join("\n", largeCompanies)
         );
     }
+
+
 }
