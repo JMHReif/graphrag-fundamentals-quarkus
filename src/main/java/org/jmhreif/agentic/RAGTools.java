@@ -43,7 +43,7 @@ public class RAGTools {
     @Inject
     ObjectMapper objectMapper;
 
-    @Tool("Answer questions about news article contents, topics, or sentiment")
+    @Tool("Semantic search over news article text. Use for content, topic, or sentiment questions (e.g. cybersecurity threats, market news, geopolitical events).")
     public String vectorSearch(String query) {
         // Generate embedding for the query
         Embedding queryEmbedding = embeddingModel.embed(query).content();
@@ -68,7 +68,7 @@ public class RAGTools {
         return formattedResults;
     }
 
-    @Tool("Answer questions about organizations, industries, and cities in the graph")
+    @Tool("Semantic/trend questions about which organizations, industries, or cities appear in news topics — returns entities enriched with related articles.")
     public String graphEnrichedSearch(String query) {
         // Generate embedding for the query
         Embedding queryEmbedding = embeddingModel.embed(query).content();
@@ -114,7 +114,7 @@ public class RAGTools {
         return result;
     }
 
-    @Tool("Execute read-only Cypher queries against the Neo4j database to retrieve data about organizations, industries, and cities")
+    @Tool("Run read-only Cypher for EXACT lookups: specific named entities, numeric filters, counts, or aggregations. Call getNeo4jSchema first.")
     public String readCypher(String query) {
         System.out.println("----- Executing Cypher Query -----");
         System.out.println("Query: " + query);
@@ -134,6 +134,7 @@ public class RAGTools {
         ToolExecutionResult executionResult = mcpClient.executeTool(request);
         String result = executionResult.resultText();
         System.out.println("Result: " + result);
-        return result;
+        // Return the executed query alongside the results so the model can include it in its answer.
+        return String.format("Executed Cypher:%n%s%n%nResults:%n%s", query, result);
     }
 }

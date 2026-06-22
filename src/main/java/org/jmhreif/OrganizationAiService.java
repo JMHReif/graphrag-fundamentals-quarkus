@@ -16,8 +16,8 @@ public interface OrganizationAiService {
     @UserMessage("""
             Based on this question:
             {question}
-            
-            PHRASE:
+
+            CONTEXT:
             {context}
             """)
     String hybridSearch(String context, String question);

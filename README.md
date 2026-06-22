@@ -51,8 +51,8 @@ http ":8080/agents/agentic?question=What news is related to cybersecurity threat
 http ":8080/agents/agentic?question=Which industries are seeing the most change recently?"
 ##Text2Cypher agent
 http ":8080/agents/agentic?question=Which organizations are not public and have revenue over 50 billion?"
-http ":8080/agents/agentic?question=Where is iDefense organization located?"
-http ":8080/agents/agentic?question=How many employees does CRMWaypoint have?"
+http ":8080/agents/agentic?question=Where is JD.com organization located?"
+http ":8080/agents/agentic?question=How many employees does Amazon have?"
 http ":8080/agents/agentic?question=Which organizations have the most article mentions and what sectors are they in?"
 ```
 

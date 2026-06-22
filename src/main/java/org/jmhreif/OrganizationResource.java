@@ -117,7 +117,7 @@ public class OrganizationResource {
         // Large result set (8)
         EmbeddingSearchRequest largeRequest = EmbeddingSearchRequest.builder()
                 .queryEmbedding(questionEmbedding)
-                .maxResults(8)
+                .maxResults(10)
                 .build();
         List<EmbeddingMatch<TextSegment>> largeResults = embeddingStore.search(largeRequest).matches();
 
